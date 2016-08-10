@@ -15,6 +15,26 @@ import scala.collection.mutable
   */
 object ClassUtil {
 
+  private val fileTag = "file:"
+
+  val isExcuteInJar: Boolean = {
+    val path = this.getClass.getResource(this.getClass.getSimpleName + ".class").getPath
+    if (path.startsWith(fileTag)) true
+    else false
+  }
+
+
+  private val classPath = "/" + this.getClass.getPackage.getName.replaceAll("\\.", "/") + "/" + this.getClass.getSimpleName + ".class"
+
+  val classRoot: String = {
+    val path = this.getClass.getResource(this.getClass.getSimpleName + ".class").getPath
+    if (path.startsWith(fileTag)) {
+      val jarPath = path.substring(fileTag.length, path.indexOf(classPath))
+      jarPath.substring(0, jarPath.lastIndexOf("/"))
+    }
+    else path.substring(0, path.indexOf(classPath))
+  }
+
   private def sameType(types: Array[Type], clazzes: Array[Class[_]]): Boolean = {
     // 个数不同
     if (types.length != clazzes.length) {
