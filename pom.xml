@@ -34,6 +34,14 @@
         </dependency>
         <!--scala end-->
 
+        <!--asm start   用于获取方法的参数名-->
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>5.0.3</version>
+        </dependency>
+        <!--asm end-->
+
     </dependencies>
 
     <build>

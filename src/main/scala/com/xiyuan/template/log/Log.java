@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.xiyuan.template.util;
+package com.xiyuan.template.log;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
