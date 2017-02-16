@@ -145,9 +145,11 @@ object ClassUtil {
                 if ((idx != -1) || recursive) {
                   if (name.endsWith(".class") && !entry.isDirectory) {
                     val className: String = name.substring(packageName.length + 1, name.length - 6)
-                    try {
-                      classes.add(Class.forName(packageName + '.' + className))
-                    }
+                    try
+                      var wholeClassName = packageName + '.' + className
+                      if (wholeClassName.charAt(0) == '.') wholeClassName = wholeClassName.substring(1)
+                      classes.add(Class.forName(wholeClassName))
+
                     catch {
                       case e: ClassNotFoundException =>
                         e.printStackTrace()
@@ -197,7 +199,9 @@ object ClassUtil {
       else {
         val className: String = file.getName.substring(0, file.getName.length - 6)
         try {
-          classes.add(Thread.currentThread.getContextClassLoader.loadClass(packageName + '.' + className))
+          var wholeClassName = packageName + '.' + className
+          if (wholeClassName.charAt(0) == '.') wholeClassName = wholeClassName.substring(1)
+          classes.add(Thread.currentThread.getContextClassLoader.loadClass(wholeClassName))
         }
         catch {
           case e: ClassNotFoundException =>
